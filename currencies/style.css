@@ -1,0 +1,453 @@
+/* General styling */
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Page layout*/
+.wrapper {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    perspective: 10px;
+}
+
+header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 65%;
+    transform-style: preserve-3d;
+    z-index: -1;
+    text-align: center;
+}
+
+.background,
+.foreground {
+    position: absolute;
+    height: 120%;
+    width: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.background {
+    transform: translateZ(-9px) scale(2);
+}
+
+.foreground {
+    transform: translateZ(-5px) scale(0.7);
+    width: fit-content;
+    margin-top: 25%;
+    margin-left: 85%;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* navbar design */
+.navContainer {
+    position: fixed;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+nav {
+    width: 80%;
+    border-radius: 0px 0px 15px 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-family: "Poppins", sans-serif;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+}
+
+.nav-item:hover {
+    scale: 1.1;
+    font-weight: 600;
+    text-shadow: 2px 1px rgb(232, 240, 0);
+}
+
+.nav-link:active {
+    scale: 1.3;
+}
+
+.navbar-expand-md .navbar-nav .nav-link {
+    color: #ffb338;
+    font-size: larger;
+    transition: 0.2s;
+}
+
+.navbar-toggler {
+    background-color: #ffb338;
+}
+
+.navbar-toggler-icon {
+    background-color: #ffb338;
+}
+
+/* search styling----------------------------- */
+.form-control {
+    background: none;
+    transition: 0.3s;
+    border: 1px solid rgb(79, 53, 8);
+    color: white;
+    caret-color: #ffb338;
+}
+
+.form-control:hover {
+    border: 3px solid #ffb338;
+    color: white;
+}
+
+.form-control:focus {
+    background: transparent;
+    box-shadow: none;
+    border: 3px solid #ffb338;
+    color: white;
+
+}
+
+/* main headline */
+:root {
+    --gold: #ffb338;
+    --light-shadow: #77571d;
+    --dark-shadow: #3e2904;
+}
+
+.headerBox {
+    display: grid;
+    grid-template-areas: 'overlap';
+    place-content: center;
+    text-transform: uppercase;
+    height: 100vh;
+}
+
+.headerBox>div {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: #363833;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3em, 18vw, 3.7rem);
+    grid-area: overlap;
+    letter-spacing: 1px;
+    -webkit-text-stroke: 4px transparent;
+}
+
+div.bg {
+    background-image: repeating-linear-gradient(105deg,
+            var(--gold) 0%,
+            var(--dark-shadow) 5%,
+            var(--gold) 12%);
+    color: transparent;
+    filter: drop-shadow(5px 15px 15px black);
+    transform: scaleY(1.05);
+    transform-origin: top;
+}
+
+div.fg {
+    background-image: repeating-linear-gradient(5deg,
+            var(--gold) 0%,
+            var(--light-shadow) 23%,
+            var(--gold) 31%);
+    color: #1e2127;
+    transform: scale(1);
+}
+
+div.bg,
+div.fg {
+    animation: glowing 2.5s linear infinite reverse;
+}
+
+@keyframes glowing {
+    0% {
+        text-shadow: 0px 0px 2px rgb(255, 149, 0);
+    }
+
+    50% {
+        text-shadow: 2px 2px 10px rgb(255, 149, 0);
+    }
+
+    100% {
+        text-shadow: 0px 0px 2px rgb(255, 149, 0);
+    }
+}
+
+/* Card area */
+section {
+    background-color: #333;
+}
+
+#contentDiv {
+    padding-top: 1%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    gap: 15px;
+    min-height: 100%;
+    min-width: 100%;
+    background-color: #333;
+}
+
+#contentDiv {
+    margin: auto;
+    overflow: auto;
+    background: linear-gradient(315deg, rgb(131, 65, 126) 3%, rgb(8, 21, 35) 38%, rgb(16, 80, 76) 68%, rgb(121, 9, 9) 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+}
+
+.card {
+    width: 200px;
+    height: 185px;
+    border: 1px solid darkgoldenrod;
+    margin: 10px;
+    padding: 7px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px gray;
+    font-size: larger;
+    transition: 0.8s;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    text-align: left;
+}
+
+.card-body {
+    font-size: medium;
+    padding-top: 5px;
+    margin: auto;
+    color: rgb(197, 172, 12);
+}
+
+.card .form-check-input {
+    position: absolute;
+    right: 10px;
+    background-color: rgb(161, 174, 170);
+}
+
+.card .form-check-input:focus {
+    box-shadow: none;
+}
+
+.form-check-input:checked {
+    background-color: #da9a07;
+    border-color: #da9a07;
+}
+
+#coinImage {
+    position: absolute;
+    right: 7%;
+    bottom: 25%;
+    width: 40px;
+    height: 40px;
+}
+
+.card:hover {
+    scale: 1.2;
+    box-shadow: 5px 5px 10px rgb(159, 226, 191);
+    border: 3px solid darkgoldenrod;
+}
+
+.card h5 {
+    position: absolute;
+    text-shadow: 1px 1px 5px #da9a07;
+    padding-left: 14px;
+    font-weight: bolder;
+    font-size: 25px;
+}
+
+h6 {
+    padding-top: 5px;
+    padding-left: 14px;
+    text-shadow: 2px 2px 4px rgb(225, 222, 222);
+    color: #da9a07;
+}
+
+#infoBtn {
+    width: 100px;
+    color: #fff;
+    padding-bottom: 0;
+    border: none;
+}
+
+#infoBtn:hover {
+    color: darkgoldenrod;
+}
+
+/* Modal */
+.modal-content {
+    height: 350px;
+    margin: auto;
+    overflow: auto;
+    background: linear-gradient(315deg, rgb(128, 117, 32) 3%, rgb(81, 41, 78) 38%, rgb(5, 35, 78) 68%, rgb(124, 40, 40) 98%);
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    padding-bottom: 5px;
+}
+
+.modal-title {
+    text-align: center;
+}
+
+.modal h4 {
+    color: rgb(222, 34, 34);
+    font-weight: bold;
+    animation: biggerText 1.5s linear infinite;
+}
+
+@keyframes biggerText {
+    0% {
+        scale: 1;
+    }
+
+    50% {
+        scale: 1.1;
+
+    }
+
+    100% {
+        scale: 1;
+    }
+}
+
+.modal h5 {
+    text-shadow: 1px 1px 5px #dad4c5;
+    padding-left: 10px;
+}
+
+.modal-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+}
+
+.modalCard {
+    width: 130px;
+    height: 100px;
+    border-radius: 10px;
+    border: 1px solid darkgoldenrod;
+    box-shadow: 5px 5px 10px gray;
+    font-size: larger;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    color: black;
+    font-size: x-large;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px #ffb338;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.modalCard .form-check-label {
+    text-align: center;
+}
+
+.modalCard .form-check {
+    display: flex;
+    justify-content: center;
+}
+
+#closeBtn {
+    background: none;
+    width: 30%;
+    margin: auto;
+    transition: 0.3s;
+    border: 1px solid rgb(79, 53, 8);
+}
+
+#closeBtn:hover {
+    border: 3px solid #ffb338;
+    color: #ffb338;
+}
+
+/* loader */
+.loader {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    display: inline-block;
+    border-top: 4px solid rgb(234, 238, 236);
+    border-right: 4px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+.loader::after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    border-left: 4px solid #da9a07;
+    border-bottom: 4px solid transparent;
+    animation: rotation 0.5s linear infinite reverse;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* card area background */
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 100% 100%;
+    }
+
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .headerBox>div {
+        font-size: clamp(3em, 18vw, 3rem);
+    }
+
+    .modal-content {
+        height: 500px;
+    }
+
+    .aboutCardBox {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* Reports */
+#reportsCard {
+    width: 350px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 50px;
+    color: #ffb338;
+}

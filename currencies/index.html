@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Currencies</title>
+    <!-- favicon link -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/2844381_bitoin_btc_coin_crypto_icon.ico">
+
+    <!-- bootstrap css & icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <!-- css -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="aboutArea.css">
+    <!-- jquery -->
+    <script src="jquery-3.6.1.js"></script>
+    <!-- bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <!-- js -->
+    <script src="main.js"></script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <div class="navContainer">
+        <nav class="navbar navbar-expand-md">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="javascript:void(0)"
+                                id="currenciesLink"><i class="bi bi-house"></i>&nbsp;Currencies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="javascript:void(0)" id="reportsLink"><i
+                                    class="bi bi-bar-chart"></i>&nbsp;Reports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="javascript:void(0)" id="aboutLink"><i
+                                    class="bi bi-file-earmark-person"></i>&nbsp;About</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            id="searchInput">
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <h4 class="modal-title">Sorry only 5 coins allowed!</h4>
+                <h5>Chose coin to replace or click cancel below</h5>
+                <div class="modal-body" id="modalBody">
+                </div>
+                <button id="closeBtn" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Layout -->
+    <div class="wrapper">
+        <header>
+            <img src="assets/images/background.jpg" class="background">
+            <div class="foreground">
+                <img src="assets/images/bitcoins.png">
+            </div>
+            <div class="headerBox" id="headerBox">
+                <div class="bg"> Crypto <br> Currencies </div>
+                <div class="fg"> Crypto <br> Currencies </div>
+            </div>
+        </header>
+        <section id="contentDiv">
+            <span class="loader"></span>
+
+        </section>
+    </div>
+
+</body>
+
+</html>
