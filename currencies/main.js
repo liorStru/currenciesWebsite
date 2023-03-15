@@ -2,7 +2,6 @@
 
 "use strict";
 
-
 $(async () => {
 
     // main header effects
@@ -29,19 +28,37 @@ $(async () => {
     });
 
     $("#reportsLink").click(() => {
-        handleReports();
+        displayReports();
     });
 
 
     $("#aboutLink").click(() => {
-        handleAbout();
+        displayAbout();
+    });
+
+    // Hide the navigation menu
+    $(".nav-link").click(() => {
+        $(".navbar-collapse").collapse('hide');;
+    });
+
+    // Hide navigation menu when a click is detected outside of it
+    $(document).click((event) => {
+        if (!$(event.target).closest('.navbar').length) {
+            $(".navbar-collapse").collapse('hide');
+        }
     });
 
     //---------------Coin search -------------
 
     $("#searchInput").keyup(() => {
+
+        // prevent page refresh
         event.preventDefault();
+
+        // get value to search from input
         const searchVal = $("#searchInput").val();
+
+        // hide all cards and show only relevant cards
         $(".card").hide();
         coinSymbols.filter(symbol => symbol.toLowerCase().startsWith(searchVal.toLowerCase()))
             .forEach(symbol => {
@@ -54,29 +71,26 @@ $(async () => {
     // var for coin that invokes modal
     let extraCoin = '';
 
-    // adds coin to arr with toggle and invokes modal  
-    $("#contentDiv").on("click", "input", function () {
+    // adds coin to arr with toggle and invokes modal 
+    $("#contentDiv").on("click", "input", function (event) {
 
-        let coinId = $(this).attr("id");
+        // get id from clicked coin input
+        const coinId = event.target.id;
 
+        // if toggle is checked 
         if (event.target.checked) {
 
-            if (chosenCoins.length < 5) {
-                chosenCoins.push(coinId);
-            }
-            else {
-                extraCoin = coinId;
-                event.target.checked = false;
-                modalContent();
-            }
-        }
-        else {
-            chosenCoins = chosenCoins.filter(item => {
-                return (item != coinId);
-            });
+            // and there are less than 5 chosen coins, add the coin to the chosen coins array
+            chosenCoins.length < 5 ? chosenCoins.push(coinId) :
+
+                // otherwise, set the extraCoin variable, uncheck the coin input, and show the modal
+                ((extraCoin = coinId), (event.target.checked = false), modalContent());
+
+        } else {
+            // if the coin input is unchecked, remove the coin from the chosen coins array
+            chosenCoins = chosenCoins.filter(item => item !== coinId);
         }
 
-        // save chosen coins to storage
         saveToStorage();
     });
 
@@ -101,19 +115,22 @@ $(async () => {
         }
     }
 
-    // turns toggle in modal off and toggle in coins on
+    // turn off the toggle in the modal and turn on the toggle in the coins
     $(".modal").on("change", "input", function () {
 
+        // clear and hide the modal
         $("#myModal").fadeOut(650);
         $("#modalBody").empty();
 
-
+        // get id of clicked coin input in the modal and find its index in the chosenCoins arr
         const modalCoinId = $(this).attr("id");
         const index = chosenCoins.indexOf(modalCoinId);
 
+        // remove coin from the chosenCoins arr, add the extra coin instead
         chosenCoins.splice(index, 1);
         chosenCoins.push(extraCoin);
 
+        // save to storage and display coins
         saveToStorage();
         displayCoins(coins);
     });
@@ -131,6 +148,7 @@ $(async () => {
 
         let html = ``;
 
+        // checks toggles of cards that are in chosenCoins
         for (const coin of coins) {
             let checked = "";
             if (chosenCoins.indexOf(coin.symbol) !== -1) {
@@ -171,7 +189,11 @@ $(async () => {
 
     // display about page
     function displayAbout() {
+
+        // empty contentDiv 
         $("#contentDiv").html('');
+
+        // data for about page
         let html = `    
         <div class="aboutMeArea">
            <h4 class="aboutHeader">Me & The Project</h4>
@@ -192,6 +214,7 @@ $(async () => {
                     <div class="myLinks">
                         <a href="https://www.facebook.com/profile.php?id=100011232464408"><i class="bi bi-facebook"></i></a>
                         <a href="https://www.instagram.com/liorstrulovits/"> <i class="bi bi-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/lior-strulovits-b93494264/"> <i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
             </div>
@@ -219,16 +242,80 @@ $(async () => {
         $("#contentDiv").html(html);
     }
 
-    // display reports
+    // display reports with chosenCoins
     function displayReports() {
-        $("#contentDiv").html('');
-        let html = `
-        <div class="card" id="reportsCard">
-           <h2>Sorry reports are not available</h2>
-        </div>
-        `;
 
-        $("#contentDiv").append(html);
+        // arr for chart coins
+        const data = [];
+
+        // get each coins worth in usd
+        for (const coin of chosenCoins) {
+            const worth = coins.find(c => c.symbol === coin).market_data.current_price.usd;
+            data.push({ name: coin, worth });
+        }
+
+        // display chart with data
+        displayChart(data);
+    }
+
+    // displays chart
+    function displayChart(data) {
+
+        // empty contentDiv 
+        $("#contentDiv").html('');
+
+        // // create a new canvas element
+        let canvas = document.createElement('canvas');
+
+        // // set the ID attribute
+        canvas.id = 'chart';
+
+        // add the canvas element to the contentDiv section
+        document.getElementById('contentDiv').append(canvas);
+
+        // vars for chart
+        const labels = data.map(d => d.name);
+        const values = data.map(d => d.worth);
+
+        new Chart(document.getElementById("chart"), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Worth in USD',
+                    data: values,
+                    backgroundColor: '#da9a07',
+                    borderColor: '#fff',
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Worth in USD',
+                            color: 'white'
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            color: '#da9a07'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Coin Name',
+                            color: 'white'
+                        },
+                        ticks: {
+                            color: '#da9a07'
+                        }
+                    }
+                }
+            }
+        });
     }
 
     // gets api from url in json format
@@ -242,16 +329,6 @@ $(async () => {
     async function handleCurrencies() {
         const coins = await getJason("https://api.coingecko.com/api/v3/coins/");
         return coins;
-    }
-
-    // Display about page
-    function handleAbout() {
-        displayAbout();
-    }
-
-    // Display report page
-    function handleReports() {
-        displayReports();
     }
 
     //convert coins to string and saves to local storage

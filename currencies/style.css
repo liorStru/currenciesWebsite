@@ -65,6 +65,7 @@ nav {
     border-radius: 0px 0px 15px 15px;
     background-color: rgba(0, 0, 0, 0.6);
     font-family: "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif;
     backdrop-filter: blur(6px);
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
 }
@@ -439,15 +440,4 @@ h6 {
         flex-wrap: wrap;
         justify-content: center;
     }
-}
-
-/* Reports */
-#reportsCard {
-    width: 350px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 50px;
-    color: #ffb338;
 }
